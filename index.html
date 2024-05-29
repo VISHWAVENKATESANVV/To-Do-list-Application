@@ -3,16 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do list App</title>
+    <title>To Do List App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <div class ="todo-app">
-            <h2>To-Do list <img src="images/icon.png"></h2>
+        <div class="todo-app">
+            <h2>To-Do List <img src="images/icon.png" alt="Icon"></h2>
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Add your text">
+                <button onclick="addTask()">Add</button>
+            </div>
+            <div>
+                <ul id="list-container"></ul>
+            </div>
         </div>
-
     </div>
-    
+
+    <script>
+        const inputBox = document.getElementById("input-box");
+        const listContainer = document.getElementById("list-container");
+
+        function addTask() {
+            if (inputBox.value === '') {
+                alert("You must write something!");
+            } else {
+                let li = document.createElement("li");
+                li.innerHTML = inputBox.value;
+                listContainer.appendChild(li);
+
+                let span = document.createElement("span");
+                span.innerHTML = "\u00D7";  // Unicode for '×' symbol
+                span.className = "close";
+                li.appendChild(span);
+
+                span.onclick = function() {
+                    this.parentElement.remove();
+                }
+
+                li.onclick = function() {
+                    this.classList.toggle('checked');
+                }
+            }
+            inputBox.value = "";
+        }
+    </script>
 </body>
 </html>
